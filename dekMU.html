@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DekMU</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;700&family=Raleway:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Josefin Sans', sans-serif;
+        }
+
+        body {
+            background-color: #f0f8ff;
+            color: #333;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1f42e2, #4054d2);
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            background-color: #e1f5fe;
+            padding: 10px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        nav a {
+            color: #1f42e2;
+            text-decoration: none;
+            font-weight: 600;
+            position: relative;
+            padding: 5px 10px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #f0f8ff;
+            background-color: #1f42e2;
+            border-radius: 5px;
+            transform: scale(1.05);
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 20px;
+            gap: 20px;
+        }
+
+        .sidebar {
+            flex: 1 1 20%;
+            padding: 15px;
+            background-color: #f9fbff;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .faculty-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .faculty-item {
+            background-color: #ffffff;
+            border-left: 4px solid #1f42e2;
+            border-radius: 10px;
+            padding: 15px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .faculty-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+            background: linear-gradient(135deg, #f0f8ff, #e1f5fe);
+            cursor: pointer; /* ให้แสดงว่ากดได้ */
+        }
+
+        .faculty-item a {
+            color: #1f42e2;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .faculty-item:hover a {
+            color: #f0f8ff;
+        }
+
+        .faculty-item-icon {
+            font-size: 1.5em;
+            color: #1f42e2;
+            margin-left: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .faculty-item:hover .faculty-item-icon {
+            transform: rotate(90deg);
+        }
+
+        .main-content, .section {
+            flex: 1 1 70%;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease-in-out;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fae9e9;
+            text-align: center;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 8px;
+            font-size: 0.9em;
+        }
+
+        /* สไตล์สำหรับเนื้อหาหลัก */
+        .main-content h2 {
+            font-family: 'Raleway', sans-serif;
+            color: #1f42e2;
+            border-bottom: 2px solid #1f42e2;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        /* สไตล์สำหรับคำถามที่พบบ่อย */
+        .faq-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .faq-list li {
+            background-color: #f1f1f1;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 5px 0;
+            transition: background-color 0.3s;
+        }
+
+        .faq-list li:hover {
+            background-color: #e1f5fe;
+            cursor: pointer;
+        }
+         /* ข่าวสารในรูปแบบคาร์ดมินิมอล */
+    .news-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        padding: 0;
+        list-style: none;
+    }
+
+    .news-card {
+        flex: 1 1 calc(30% - 20px);
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        border: 1px solid #e1e8ed;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .news-card h4 {
+        color: #1f42e2;
+        font-size: 1.15em;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+    .news-card p {
+        font-size: 0.95em;
+        color: #555;
+        line-height: 1.4;
+        margin-bottom: 15px;
+        max-height: 3.5em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .news-card .read-more {
+        color: #1f42e2;
+        text-decoration: none;
+        font-size: 0.9em;
+        font-weight: 600;
+        border: 1px solid #1f42e2;
+        padding: 8px 12px;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+    }
+
+    .news-card .read-more:hover {
+        color: #fff;
+        background-color: #1f42e2;
+        border-color: #1f42e2;
+    }
+
+    .news-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        background-color: #fafbff;
+    }
+    .container {
+    display: flex;
+    flex-wrap: nowrap; /* ป้องกันการซ้อนทับของส่วนต่างๆ */
+    justify-content: space-between; /* เว้นช่องว่างระหว่าง sidebar และ main-content */
+    margin: 20px;
+    gap: 20px;
+}
+
+.sidebar {
+    flex: 1 1 20%;
+    padding: 15px;
+    background-color: #f9fbff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    margin-right: 20px; /* เพิ่มช่องว่างทางขวาของ sidebar */
+}
+
+.main-content, .section {
+    flex: 1 1 70%;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+}
+
+           /* Responsive */
+           @media (max-width: 768px) {
+            .news-card {
+                flex: 1 1 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>#DekMU</h1>
+    </header>
+
+    <nav>
+        <a href=" https://34rftn.csb.app/">หน้าแรก</a>
+        <a href="https://ttk43d.csb.app/">ข้อมูลการรับสมัคร</a>
+        <a href="https://l8xryl.csb.app/">คำแนะนำจากรุ่นพี่</a>
+        <a href="https://53cn4v.csb.app/">เกี่ยวกับเรา</a>
+    </nav>
+
+    <div class="container">
+        <div class="sidebar">
+            <h3>คณะในมหิดล</h3>
+            <div class="faculty-list">
+                <div class="faculty-item">
+                    <a href="https://pt.mahidol.ac.th/">คณะกายภาพบำบัด</a>
+                    <span class="faculty-item-icon">→</span>
+                </div>
+                <div class="faculty-item">
+                    <a href="https://dt.mahidol.ac.th/th/">คณะทันตแพทยศาสตร์</a>
+                    <span class="faculty-item-icon">→</span>
+                </div>
+                <div class="faculty-item">
+                    <a href="https://ns.mahidol.ac.th/nurse_th/index.html">คณะพยาบาลศาสตร์</a>
+                    <span class="faculty-item-icon">→</span>
+                </div>
+                <div class="faculty-item">
+                    <a href="https://science.mahidol.ac.th/">คณะวิทยาศาสตร์</a>
+                    <span class="faculty-item-icon">→</span>
+                </div>
+                <div class="faculty-item">
+                    <a href="https://www.eg.mahidol.ac.th/egmu/">คณะวิศวกรรมศาสตร์</a>
+                    <span class="faculty-item-icon">→</span>
+                </div>
+                <div class="faculty-item">
+                    <a href="https://la.mahidol.ac.th/th/">คณะศิลปศาสตร์</a>
+                    <span class="faculty-item-icon">→</span>
+                </div>
+                <div class="faculty-item">
+                    <a href="https://sh.mahidol.ac.th/">คณะสังคมศาสตร์และมนุษย์ศาสตร์</a>
+                    <span class="faculty-item-icon">→</span>
+                </div>
+                <div class="faculty-item">
+                    <a href="https://vs.mahidol.ac.th/new/">คณะสัตวแพทยศาสตร์</a>
+                    <span class="faculty-item-icon">→</span>
+                </div>
+                <div class="faculty-item">
+                    <a href="https://www.ph.mahidol.ac.th/">คณะสาธารณสุขศาสตร์</a>
+                    <span class="faculty-item-icon">→</span>
+                </div>
+                <div class="faculty-item">
+                    <a href="https://en.mahidol.ac.th/">คณะสิ่งแวดล้อมและทรัพยากรศาสตร์</a>
+                    <span class="faculty-item-icon">→</span>
+                </div>
+                <div class="faculty-item">
+                    <a href="https://mt.mahidol.ac.th/">คณะเทคนิคการแพทย์</a>
+                    <span class="faculty-item-icon">→</span>
+                </div>
+                <div class="faculty-item">
+                    <a href="https://www.ict.mahidol.ac.th/th/">คณะเทคโนโลยีสารสนเทศและการสื่อสาร</a>
+                    <span class="faculty-item-icon">→</span>
+                </div>
+                <div class="faculty-item">
+                    <a href="https://pharmacy.mahidol.ac.th/th/">คณะเภสัชศาสตร์</a>
+                    <span class="faculty-item-icon">→</span>
+                </div>
+                <div class="faculty-item">
+                    <a href="https://www.rama.mahidol.ac.th/">คณะแพทยศาสตร์โรงพยาบาลรามาธิบดี</a>
+                    <span class="faculty-item-icon">→</span>
+                </div>
+                <div class="faculty-item">
+                    <a href="https://www2.si.mahidol.ac.th/th/">คณะแพทยศาสตร์โรงพยาบาลศิริราช</a>
+                    <span class="faculty-item-icon">→</span>
+                </div>
+                <div class="faculty-item">
+                    <a href="https://ss.mahidol.ac.th/">วิทยาลัยวิทยาศาสตร์และเทคโนโลยีการกีฬา</a>
+                    <span class="faculty-item-icon">→</span>
+                </div>
+                <div class="faculty-item">
+                    <a href="#news1">วิทยาลัยศาสนศึกษา</a>
+                    <span class="faculty-item-icon">→</span>
+                </div>
+                <div class="faculty-item">
+                    <a href="#news1">วิทยาเขตกาญจนบุรี</a>
+                    <span class="faculty-item-icon">→</span>
+                </div>
+                <div class="faculty-item">
+                    <a href="#news1">วิทยาเขตนครสวรรค์</a>
+                    <span class="faculty-item-icon">→</span>
+                </div>
+                <div class="faculty-item">
+                    <a href="#news1">วิทยาเขตอำนาจเจริญ</a>
+                    <span class="faculty-item-icon">→</span>
+                </div>
+                <div class="faculty-item">
+                    <a href="#news1">ศูนย์แพทยศาสตรศึกษาชั้นคลีนิก รพ.มหาราช นครราชสีมา</a>
+                    <span class="faculty-item-icon">→</span>
+                </div>
+            </div>
+        </div>
+<body>
+
+
+    <div class="container">
+        <div class="main-content">
+            <h2>ข่าวสารล่าสุด</h2>
+            
+            <!-- ข่าวสารในรูปแบบคาร์ดมินิมอล -->
+            <ul class="news-list">
+                <li class="news-card">
+                    <h4>การรับสมัคร TCAS รอบใหม่ปี 2567 เริ่มต้นแล้ว!</h4>
+                    <p>รายละเอียดเกี่ยวกับการเปิดรับสมัครในรอบใหม่ และข้อมูลที่ต้องใช้ในการยื่นสมัครเรียน.</p>
+                    <a href="#" class="read-more">อ่านเพิ่มเติม</a>
+                </li>
+                <li class="news-card">
+                    <h4>ทุนการศึกษาสำหรับนักเรียนยอดเยี่ยม เปิดรับสมัครแล้ววันนี้</h4>
+                    <p>รายละเอียดของทุนการศึกษาและวิธีการสมัครสำหรับนักเรียนที่มีผลการเรียนดี.</p>
+                    <a href="#" class="read-more">อ่านเพิ่มเติม</a>
+                </li>
+                <li class="news-card">
+                    <h4>กิจกรรม Open House ปี 2567 เปิดโอกาสเยี่ยมชมคณะในมหิดล</h4>
+                    <p>กิจกรรมเปิดบ้านที่จะเปิดให้นักเรียนและผู้สนใจเข้าเยี่ยมชมมหาวิทยาลัยและคณะต่างๆ.</p>
+                    <a href="#" class="read-more">อ่านเพิ่มเติม</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</body>
+</html>
+
+
+        <div class="section">
+            <h3>คำถามที่พบบ่อย (FAQ)</h3>
+            <ul class="faq-list">
+                <li>ขั้นตอนการสมัคร TCAS มีอะไรบ้าง?</li>
+                <li>สังคมของมหาวิทยาลัยเป็นยังไง?</li>
+                <li>รายละเอียดเกี่ยวกับการยื่นคะแนนต่างๆ ในการสมัคร</li>
+                <li>วิธีการเตรียมตัวสำหรับการสอบเข้า</li>
+            </ul>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2024 เว็บไซต์ของคุณ - ติดต่อเรา | นโยบายความเป็นส่วนตัว</p>
+    </footer>
+
+</body>
+</html>
